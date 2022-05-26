@@ -16,6 +16,7 @@ public class SearchResultsPage {
     private final List<SelenideElement> goodsTitles = $$(By.xpath("//span[@class='goods-tile__title']"));
     private final SelenideElement catalogEmpty = $(By.xpath("//div[@class='catalog-empty']"));
     private final SelenideElement minPriceInput = $(By.xpath("//input[@formcontrolname='min']"));
+    private final SelenideElement maxPriceInput = $(By.xpath("//input[@formcontrolname='max']"));
     private final SelenideElement priceFilterOKButton  = $(By.xpath("//button[contains(@class, ' slider-filter')]"));
     private final List<SelenideElement> goodsPrices =
             $$(By.xpath("//div[@class='goods-tile ng-star-inserted']//span[@class='goods-tile__price-value']"));
@@ -31,6 +32,10 @@ public class SearchResultsPage {
 
     public SelenideElement getMinPriceInput() {
         return minPriceInput;
+    }
+
+    public SelenideElement getMaxPriceInput() {
+        return maxPriceInput;
     }
 
     public SelenideElement getPriceFilterOKButton() {

@@ -17,10 +17,25 @@ public class FilteringAndSortingSteps {
         searchResultsPage.getPriceFilterOKButton().click();
     }
 
+    @And("^I set (.*) value in max cost field and press OK$")
+    public void setValueInMaxCostFieldAndPressEnter(String minCost) {
+        searchResultsPage.getMaxPriceInput().clear();
+        searchResultsPage.getMaxPriceInput().setValue(minCost);
+        searchResultsPage.getPriceFilterOKButton().click();
+    }
+
     @Then("^I verify that all prices greater than (.*)$")
     public void assetThatAllGoodsPricesGreaterThatValue(int cost) {
         for (Integer price: searchResultsPage.getGoodsPrices()) {
             assertTrue(price >= cost);
         }
     }
+
+    @Then("^I verify that all prices less than (.*)$")
+    public void assetThatAllGoodsPricesLessThatValue(int cost) {
+        for (Integer price: searchResultsPage.getGoodsPrices()) {
+            assertTrue(price <= cost);
+        }
+    }
+
 }
