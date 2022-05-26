@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import org.masha.pageObjects.HeaderElement;
 import org.masha.pageObjects.SearchResultsPage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SearchByWordSteps {
@@ -21,14 +22,21 @@ public class SearchByWordSteps {
     }
 
     @Then("^I verify that URL contain (.*) word$")
-    public void assertThenUrlContainSearchWord(String searchWord){
+    public void assertThenUrlContainSearchWord(String searchWord) {
         assertTrue(WebDriverRunner.url().contains(searchWord.toLowerCase()));
     }
 
     @Then("^I verify that search result contains (.*) word$")
-    public void assetThatSearchResultsContainsSearchWord(String searchWord){
+    public void assetThatSearchResultsContainsSearchWord(String searchWord) {
         for (SelenideElement goodsTitle : searchResultsPage.getGoodsTitles()) {
             assertTrue(goodsTitle.text().contains(searchWord));
         }
     }
+
+    @Then("^I see catalog empty message$")
+    public void assetThatSearchResultsContainsSearchWord() {
+        assertTrue(searchResultsPage.getCatalogEmpty().shouldBe(visible).isDisplayed());
+    }
+
+
 }
