@@ -1,5 +1,8 @@
 package org.masha.stepDefinitions;
 
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.google.common.collect.Comparators;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -10,6 +13,7 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FilteringAndSortingSteps {
+
 
     SearchResultsPage searchResultsPage = new SearchResultsPage();
 
@@ -29,14 +33,14 @@ public class FilteringAndSortingSteps {
 
     @Then("^I verify that all prices greater than (.*)$")
     public void assetThatAllGoodsPricesGreaterThatValue(int cost) {
-        for (Integer price: searchResultsPage.getGoodsPrices()) {
+        for (Integer price : searchResultsPage.getGoodsPrices()) {
             assertTrue(price >= cost);
         }
     }
 
     @Then("^I verify that all prices less than (.*)$")
     public void assetThatAllGoodsPricesLessThatValue(int cost) {
-        for (Integer price: searchResultsPage.getGoodsPrices()) {
+        for (Integer price : searchResultsPage.getGoodsPrices()) {
             assertTrue(price <= cost);
         }
     }
@@ -62,5 +66,22 @@ public class FilteringAndSortingSteps {
     public void checkExpensiveFirstSortOption() {
         assertTrue(Comparators.isInOrder(searchResultsPage.getGoodsPrices(), Comparator.reverseOrder()));
     }
+
+    @And("^I choose 64GB option in memory filter$")
+    public void choose64GBMemoryFilter() {
+        searchResultsPage.getMemory64GBCheckBox().scrollIntoView("{block: \"center\"}");
+        searchResultsPage.getMemory64GBCheckBox().shouldBe(Condition.visible).click();
+    }
+
+    @Then("^I verify that all goods descriptions contains 65GB$")
+    public void checkThatAllGoodsDescriptionContains65GB() {
+        searchResultsPage.getGoodsTitles().get(0).scrollTo();
+        for (SelenideElement goodsTitle : searchResultsPage.getGoodsTitles()) {
+            assertTrue(goodsTitle.getText().contains("64 GB") ||
+                    goodsTitle.getText().contains("64GB"));
+
+        }
+    }
+
 
 }

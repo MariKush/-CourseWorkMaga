@@ -23,6 +23,7 @@ public class SearchResultsPage {
     private final SelenideElement selectSortOption  = $(By.xpath("//select[contains(@class, 'select-css')]"));
     private final SelenideElement cheapFirstOption  = $(By.xpath("//option[contains(@value, 'cheap')]"));
     private final SelenideElement expensiveFirstOption  = $(By.xpath("//option[contains(@value, 'expensive')]"));
+    private final SelenideElement memory64GBCheckBox  = $(By.xpath("//li/a[(@data-id='64 ГБ')]"));
 
 
     public List<SelenideElement> getGoodsTitles() {
@@ -67,8 +68,9 @@ public class SearchResultsPage {
         return expensiveFirstOption;
     }
 
-
-
+    public SelenideElement getMemory64GBCheckBox() {
+        return memory64GBCheckBox;
+    }
 
 
 
