@@ -13,18 +13,22 @@ import static java.util.stream.Collectors.toList;
 
 public class SearchResultsPage {
 
+
     private final List<SelenideElement> goodsTitles = $$(By.xpath("//span[@class='goods-tile__title']"));
     private final SelenideElement catalogEmpty = $(By.xpath("//div[@class='catalog-empty']"));
     private final SelenideElement minPriceInput = $(By.xpath("//input[@formcontrolname='min']"));
     private final SelenideElement maxPriceInput = $(By.xpath("//input[@formcontrolname='max']"));
-    private final SelenideElement priceFilterOKButton  = $(By.xpath("//button[contains(@class, ' slider-filter')]"));
+    private final SelenideElement priceFilterOKButton = $(By.xpath("//button[contains(@class, ' slider-filter')]"));
     private final List<SelenideElement> goodsPrices =
             $$(By.xpath("//div[@class='goods-tile ng-star-inserted']//span[@class='goods-tile__price-value']"));
-    private final SelenideElement selectSortOption  = $(By.xpath("//select[contains(@class, 'select-css')]"));
-    private final SelenideElement cheapFirstOption  = $(By.xpath("//option[contains(@value, 'cheap')]"));
-    private final SelenideElement expensiveFirstOption  = $(By.xpath("//option[contains(@value, 'expensive')]"));
-    private final SelenideElement memory64GBCheckBox  = $(By.xpath("//li/a[(@data-id='64 ГБ')]"));
-
+    private final SelenideElement selectSortOption = $(By.xpath("//select[contains(@class, 'select-css')]"));
+    private final SelenideElement cheapFirstOption = $(By.xpath("//option[contains(@value, 'cheap')]"));
+    private final SelenideElement expensiveFirstOption = $(By.xpath("//option[contains(@value, 'expensive')]"));
+    private final SelenideElement memory64GBCheckBox = $(By.xpath("//li/a[(@data-id='64 ГБ')]"));
+    private final SelenideElement firstAddToCartButton =
+            $(By.xpath("(//button[contains(@class, 'goods-tile__buy-button')])[1]"));
+    private final SelenideElement secondAddToCartButton =
+            $(By.xpath("(//button[contains(@class, 'goods-tile__buy-button')])[2]"));
 
     public List<SelenideElement> getGoodsTitles() {
         return goodsTitles;
@@ -49,9 +53,9 @@ public class SearchResultsPage {
     public List<Integer> getGoodsPrices() {
         goodsPrices.get(0).shouldBe(visible);
         return goodsPrices.stream()
-                .map(SelenideElement::getText)
+                .map(SelenideElement :: getText)
                 .map(text -> text.replaceAll("\\s+", ""))
-                .map(Integer::parseInt)
+                .map(Integer :: parseInt)
                 .collect(toList());
     }
 
@@ -72,7 +76,13 @@ public class SearchResultsPage {
         return memory64GBCheckBox;
     }
 
+    public SelenideElement getFirstAddToCartButton() {
+        return firstAddToCartButton;
+    }
 
+    public SelenideElement getSecondAddToCartButton() {
+        return secondAddToCartButton;
+    }
 
 
 }
