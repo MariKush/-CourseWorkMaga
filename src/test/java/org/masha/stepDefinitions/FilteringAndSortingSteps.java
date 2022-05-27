@@ -1,8 +1,11 @@
 package org.masha.stepDefinitions;
 
+import com.google.common.collect.Comparators;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.masha.pageObjects.SearchResultsPage;
+
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,6 +39,28 @@ public class FilteringAndSortingSteps {
         for (Integer price: searchResultsPage.getGoodsPrices()) {
             assertTrue(price <= cost);
         }
+    }
+
+    @And("^I choose cheap first sort option$")
+    public void chooseCheapFirstSortOption() {
+        searchResultsPage.getSelectSortOption().click();
+        searchResultsPage.getCheapFirstOption().click();
+    }
+
+    @And("^I choose expensive first sort option$")
+    public void chooseExpensiveFirstSortOption() {
+        searchResultsPage.getSelectSortOption().click();
+        searchResultsPage.getExpensiveFirstOption().click();
+    }
+
+    @Then("^I verify that all goods are sorted in ascending order of price$")
+    public void checkCheapFirstSortOption() {
+        assertTrue(Comparators.isInOrder(searchResultsPage.getGoodsPrices(), Comparator.naturalOrder()));
+    }
+
+    @Then("^I verify that all goods are sorted in descending order of price$")
+    public void checkExpensiveFirstSortOption() {
+        assertTrue(Comparators.isInOrder(searchResultsPage.getGoodsPrices(), Comparator.reverseOrder()));
     }
 
 }

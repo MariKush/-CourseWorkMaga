@@ -20,6 +20,9 @@ public class SearchResultsPage {
     private final SelenideElement priceFilterOKButton  = $(By.xpath("//button[contains(@class, ' slider-filter')]"));
     private final List<SelenideElement> goodsPrices =
             $$(By.xpath("//div[@class='goods-tile ng-star-inserted']//span[@class='goods-tile__price-value']"));
+    private final SelenideElement selectSortOption  = $(By.xpath("//select[contains(@class, 'select-css')]"));
+    private final SelenideElement cheapFirstOption  = $(By.xpath("//option[contains(@value, 'cheap')]"));
+    private final SelenideElement expensiveFirstOption  = $(By.xpath("//option[contains(@value, 'expensive')]"));
 
 
     public List<SelenideElement> getGoodsTitles() {
@@ -50,6 +53,20 @@ public class SearchResultsPage {
                 .map(Integer::parseInt)
                 .collect(toList());
     }
+
+
+    public SelenideElement getSelectSortOption() {
+        return selectSortOption;
+    }
+
+    public SelenideElement getCheapFirstOption() {
+        return cheapFirstOption;
+    }
+
+    public SelenideElement getExpensiveFirstOption() {
+        return expensiveFirstOption;
+    }
+
 
 
 
