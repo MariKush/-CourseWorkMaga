@@ -61,12 +61,6 @@ public class CartSteps {
     public void assertGoodsTitle() {
         assertEquals(cartPage.getGoodTitle().text(), firstGoodsTitleInCatalog);
     }
-//
-//    @Then("^I verify that goods price in the cart equals to price in the catalog$")
-//    public void assertGoodsPrice() {
-//        assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
-//                firstGoodsPriceInCatalog);
-//    }
 
     @And("^I increment goods count in the cart$")
     public void incrementGoodsCountInTheCart() {
