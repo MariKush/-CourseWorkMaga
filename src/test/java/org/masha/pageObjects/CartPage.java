@@ -18,7 +18,7 @@ public class CartPage {
     private final SelenideElement goodActionButton = $(By.xpath("//button[@id='cartProductActions0']"));
     private final SelenideElement deleteGoodButton = $(By.xpath("//button[contains(@class, 'actions')]"));
     private final SelenideElement emptyChart = $(By.xpath("//div[contains(@class, 'cart-dummy')]"));
-
+    private final SelenideElement goodsCount = $(By.xpath("//input[@data-testid='cart-counter-input']"));
 
     public SelenideElement getGoodTitle() {
         return goodTitle;
@@ -54,6 +54,10 @@ public class CartPage {
 
     public SelenideElement getEmptyChart() {
         return emptyChart;
+    }
+
+    public SelenideElement getGoodsCount() {
+        return goodsCount;
     }
 
 }

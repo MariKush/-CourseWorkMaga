@@ -1,6 +1,7 @@
 package org.masha.stepDefinitions;
 
 
+import com.codeborne.selenide.Condition;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.masha.pageObjects.CartPage;
@@ -53,22 +54,28 @@ public class CartSteps {
     public void assertGoodsPrice() {
         assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
                 firstGoodsPriceInCatalog);
-
     }
 
-
-
-
-
-/*
-
-
-    void checkItemInCart() {
-
-        assertEquals(goodTitle, getCartPage().getGoodTitle());
-        assertEquals(goodPrice, getCartPage().getGoodPrice());
-
+    @And("^I increment goods count in the cart$")
+    public void incrementGoodsCountInTheCart() {
+        cartPage.getAddOneMoreGood().click();
     }
-*/
+
+    @Then("^I verify sum goods price in the cart with two the same goods$")
+    public void assertSumGoodsPriceForTwoTheSameGoodsInTheCart() {
+        assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
+                firstGoodsPriceInCatalog * 2);
+    }
+
+    @And("^I decrement goods count in the cart$")
+    public void decrementGoodsCountInTheCart() {
+        cartPage.getSubtractOneGood().click();
+    }
+
+    @And("^I wait for goods changing count to (.*)$")
+    public void waitForGoodsChangingCount(String count) {
+       cartPage.getGoodsCount().shouldHave(Condition.value(count));
+    }
+
 
 }
