@@ -8,13 +8,20 @@ import org.masha.pageObjects.CartPage;
 import org.masha.pageObjects.HeaderElement;
 import org.masha.pageObjects.SearchResultsPage;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import static java.text.NumberFormat.getNumberInstance;
+import static java.util.Locale.US;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.masha.utils.Utility.toPriceFormat;
 
 public class CartSteps {
 
 
     String firstGoodsTitleInCatalog;
     Integer firstGoodsPriceInCatalog;
+    Integer secondGoodsPriceInCatalog;
 
     SearchResultsPage searchResultsPage = new SearchResultsPage();
     HeaderElement headerElement = new HeaderElement();
@@ -23,6 +30,11 @@ public class CartSteps {
     @And("^I click add to cart button for the fist good$")
     public void lickAddToCartButtonForTheFirstGood() {
         searchResultsPage.getFirstAddToCartButton().click();
+    }
+
+    @And("^I click add to cart button for the second good$")
+    public void lickAddToCartButtonForTheSecondGood() {
+        searchResultsPage.getSecondAddToCartButton().click();
     }
 
     @Then("^I verify that cart header counter equals (.*)$")
@@ -49,22 +61,22 @@ public class CartSteps {
     public void assertGoodsTitle() {
         assertEquals(cartPage.getGoodTitle().text(), firstGoodsTitleInCatalog);
     }
-
-    @Then("^I verify that goods price in the cart equals to price in the catalog$")
-    public void assertGoodsPrice() {
-        assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
-                firstGoodsPriceInCatalog);
-    }
+//
+//    @Then("^I verify that goods price in the cart equals to price in the catalog$")
+//    public void assertGoodsPrice() {
+//        assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
+//                firstGoodsPriceInCatalog);
+//    }
 
     @And("^I increment goods count in the cart$")
     public void incrementGoodsCountInTheCart() {
         cartPage.getAddOneMoreGood().click();
     }
 
-    @Then("^I verify sum goods price in the cart with two the same goods$")
-    public void assertSumGoodsPriceForTwoTheSameGoodsInTheCart() {
-        assertEquals(Integer.parseInt(cartPage.getGoodPrice().getText().replaceAll("[^0-9.]", "")),
-                firstGoodsPriceInCatalog * 2);
+    @Then("^I verify sum goods price in the cart with (.*) the same goods$")
+    public void assertSumGoodsPriceForSomeCountOfTheSameGoodsInTheCart(int count) {
+        String expectedPriceInFormat = toPriceFormat(firstGoodsPriceInCatalog * count);
+        cartPage.getGoodPrice().shouldHave(Condition.text(expectedPriceInFormat));
     }
 
     @And("^I decrement goods count in the cart$")
@@ -72,10 +84,17 @@ public class CartSteps {
         cartPage.getSubtractOneGood().click();
     }
 
-    @And("^I wait for goods changing count to (.*)$")
-    public void waitForGoodsChangingCount(String count) {
-       cartPage.getGoodsCount().shouldHave(Condition.value(count));
+    @And("^I store second goods price in catalog$")
+    public void storeSecondGoodsPriceInCatalog() {
+        secondGoodsPriceInCatalog = searchResultsPage.getGoodsPrices().get(1);
     }
+
+    @Then("^I verify sum goods price in the cart with two different goods$")
+    public void assertSumGoodsPriceForTwoDifferentInTheCart() {
+        cartPage.getSumPrice().shouldHave(
+                Condition.text(firstGoodsPriceInCatalog + secondGoodsPriceInCatalog + ""));
+    }
+
 
 
 }
