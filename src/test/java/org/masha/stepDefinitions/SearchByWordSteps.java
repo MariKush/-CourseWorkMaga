@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import org.masha.pageObjects.HeaderElement;
 import org.masha.pageObjects.SearchResultsPage;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,7 +30,7 @@ public class SearchByWordSteps {
     @Then("^I verify that search result contains (.*) word$")
     public void assetThatSearchResultsContainsSearchWord(String searchWord) {
         for (SelenideElement goodsTitle : searchResultsPage.getGoodsTitles()) {
-            assertTrue(goodsTitle.text().contains(searchWord));
+            goodsTitle.shouldHave(text(searchWord));
         }
     }
 
