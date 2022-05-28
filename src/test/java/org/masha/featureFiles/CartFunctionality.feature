@@ -4,7 +4,7 @@ Feature: Verify cart functionality
     Given I open ROZETKA home page
     And I set iPhone value in Search field and press Enter
 
-  Scenario: Verify cart header counter for one good in the ca
+  Scenario: Verify cart header counter for one good in the cart
     When I click add to cart button for the fist good
     Then I verify that cart header counter equals 1
 
