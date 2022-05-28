@@ -8,11 +8,6 @@ import org.masha.pageObjects.CartPage;
 import org.masha.pageObjects.HeaderElement;
 import org.masha.pageObjects.SearchResultsPage;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
-import static java.text.NumberFormat.getNumberInstance;
-import static java.util.Locale.US;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.masha.utils.Utility.toPriceFormat;
 
