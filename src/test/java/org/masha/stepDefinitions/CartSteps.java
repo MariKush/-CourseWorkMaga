@@ -95,6 +95,17 @@ public class CartSteps {
                 Condition.text(firstGoodsPriceInCatalog + secondGoodsPriceInCatalog + ""));
     }
 
+    @And("^I open goods actions tab and choose delete button$")
+    public void openGoodsActionsTabAndChooseDeleteButton() {
+        cartPage.getGoodActionButton().click();
+        cartPage.getDeleteGoodButton().click();
+    }
+
+    @Then("^I verify that empty cart icon present$")
+    public void verifyThatEmptyCartIconPresent() {
+        cartPage.getEmptyChart().shouldBe(Condition.visible);
+    }
+
 
 
 }

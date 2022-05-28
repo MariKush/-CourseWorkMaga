@@ -38,4 +38,10 @@ Feature: Verify cart functionality
     And I open cart using header
     Then I verify sum goods price in the cart with two different goods
 
-
+  Scenario: Verify delete all goods from cart
+    Given I open ROZETKA home page
+    And I set iPhone value in Search field and press Enter
+    And I click add to cart button for the fist good
+    And I open cart using header
+    And I open goods actions tab and choose delete button
+    Then I verify that empty cart icon present
